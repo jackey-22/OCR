@@ -34,36 +34,36 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'webp', 'pdf'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# @app.route('/api/health', methods=['GET'])
-# def health_check():
-#     """Health check endpoint"""
-#     return jsonify({
-#         'status': 'healthy',
-#         'service': 'OCR API',
-#         'version': '1.0.0'
-#     })
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'service': 'OCR API',
+        'version': '1.0.0'
+    })
 
-# @app.route('/api/languages', methods=['GET'])
-# def get_languages():
-#     """Get supported languages"""
-#     languages = {
-#         'en': 'English',
-#         'es': 'Spanish', 
-#         'fr': 'French',
-#         'de': 'German',
-#         'it': 'Italian',
-#         'pt': 'Portuguese',
-#         'ru': 'Russian',
-#         'ar': 'Arabic',
-#         'zh': 'Chinese',
-#         'ja': 'Japanese',
-#         'ko': 'Korean',
-#         'hi': 'Hindi'
-#     }
-#     return jsonify({
-#         'success': True,
-#         'languages': languages
-#     })
+@app.route('/api/languages', methods=['GET'])
+def get_languages():
+    """Get supported languages"""
+    languages = {
+        'en': 'English',
+        'es': 'Spanish', 
+        'fr': 'French',
+        'de': 'German',
+        'it': 'Italian',
+        'pt': 'Portuguese',
+        'ru': 'Russian',
+        'ar': 'Arabic',
+        'zh': 'Chinese',
+        'ja': 'Japanese',
+        'ko': 'Korean',
+        'hi': 'Hindi'
+    }
+    return jsonify({
+        'success': True,
+        'languages': languages
+    })
 
 @app.route('/api/process', methods=['POST'])
 def process_files():
