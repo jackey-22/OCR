@@ -17,7 +17,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+
+# Configure CORS - Allow all origins for now (you can restrict this in production)
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "*",  # Allow all origins - change to your frontend URL in production
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Configuration
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
@@ -26,36 +34,36 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'webp', 'pdf'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    """Health check endpoint"""
-    return jsonify({
-        'status': 'healthy',
-        'service': 'OCR API',
-        'version': '1.0.0'
-    })
+# @app.route('/api/health', methods=['GET'])
+# def health_check():
+#     """Health check endpoint"""
+#     return jsonify({
+#         'status': 'healthy',
+#         'service': 'OCR API',
+#         'version': '1.0.0'
+#     })
 
-@app.route('/api/languages', methods=['GET'])
-def get_languages():
-    """Get supported languages"""
-    languages = {
-        'en': 'English',
-        'es': 'Spanish', 
-        'fr': 'French',
-        'de': 'German',
-        'it': 'Italian',
-        'pt': 'Portuguese',
-        'ru': 'Russian',
-        'ar': 'Arabic',
-        'zh': 'Chinese',
-        'ja': 'Japanese',
-        'ko': 'Korean',
-        'hi': 'Hindi'
-    }
-    return jsonify({
-        'success': True,
-        'languages': languages
-    })
+# @app.route('/api/languages', methods=['GET'])
+# def get_languages():
+#     """Get supported languages"""
+#     languages = {
+#         'en': 'English',
+#         'es': 'Spanish', 
+#         'fr': 'French',
+#         'de': 'German',
+#         'it': 'Italian',
+#         'pt': 'Portuguese',
+#         'ru': 'Russian',
+#         'ar': 'Arabic',
+#         'zh': 'Chinese',
+#         'ja': 'Japanese',
+#         'ko': 'Korean',
+#         'hi': 'Hindi'
+#     }
+#     return jsonify({
+#         'success': True,
+#         'languages': languages
+#     })
 
 @app.route('/api/process', methods=['POST'])
 def process_files():
@@ -240,14 +248,19 @@ def server_error(e):
         'error': 'Internal server error'
     }), 500
 
-if __name__ == '__main__':
-    print("🚀 Starting OCR Flask API...")
-    print("📍 API will be available at: http://localhost:5000")
-    print("🔍 Health check: http://localhost:5000/api/health")
-    print("📋 Process files: POST http://localhost:5000/api/process")
+# if __name__ == '__main__':
+#     print("🚀 Starting OCR Flask API...")
+#     print("📍 API will be available at: http://localhost:5000")
+#     # print("🔍 Health check: http://localhost:5000/api/health")
+#     # print("📋 Process files: POST http://localhost:5000/api/process")
     
-    app.run(
-        host='0.0.0.0',
-        port=5000,
-        debug=True
-    )
+#     app.run(
+#         host='0.0.0.0',
+#         port=5000,
+#         debug=True
+#     )
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))  # default 5000 for local dev
+    print(f"🚀 Starting OCR Flask API on port {port}...")
+    app.run(host='0.0.0.0', port=port, debug=True)

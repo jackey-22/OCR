@@ -1,5 +1,6 @@
 // Simple API utility for Flask OCR service
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_URL || 'http://localhost:5000';
+const API_ENDPOINT = `${API_BASE_URL}/api`;
 
 export async function processOCR(files, options = {}) {
   try {
@@ -15,7 +16,7 @@ export async function processOCR(files, options = {}) {
     formData.append('useHighAccuracy', options.useHighAccuracy || 'true');
     formData.append('confidenceThreshold', options.confidenceThreshold || '0.7');
     
-    const response = await fetch(`${API_BASE_URL}/process`, {
+    const response = await fetch(`${API_ENDPOINT}/process`, {
       method: 'POST',
       body: formData, // Don't set Content-Type, let browser set it for FormData
     });
@@ -38,7 +39,7 @@ export async function quickExtract(file, languages = ['en']) {
     formData.append('file', file);
     formData.append('languages', languages.join(','));
     
-    const response = await fetch(`${API_BASE_URL}/quick`, {
+    const response = await fetch(`${API_ENDPOINT}/quick`, {
       method: 'POST',
       body: formData,
     });
@@ -57,7 +58,7 @@ export async function quickExtract(file, languages = ['en']) {
 
 export async function getLanguages() {
   try {
-    const response = await fetch(`${API_BASE_URL}/languages`);
+    const response = await fetch(`${API_ENDPOINT}/languages`);
     const result = await response.json();
     return result;
     
@@ -72,7 +73,7 @@ export async function getLanguages() {
 
 export async function healthCheck() {
   try {
-    const response = await fetch(`${API_BASE_URL}/health`);
+    const response = await fetch(`${API_ENDPOINT}/health`);
     const result = await response.json();
     return result;
     
