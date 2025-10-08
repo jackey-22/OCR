@@ -178,7 +178,7 @@ function Home() {
             AI-Powered OCR System
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Extract text from images and PDFs with advanced AI technology.
+            Extract text from images (JPG/JPEG or PNG) with advanced AI technology.
           </p>
         </div>
 
@@ -192,20 +192,20 @@ function Home() {
                   <FiUpload className="text-blue-600" />
                   Upload Files
                 </h2>
-                <Button
+                {/* <Button
                   icon={<FiSettings />}
                   label="Settings"
                   outlined
                   size="small"
                   onClick={() => setShowSettings(true)}
-                />
+                /> */}
               </div>
 
               <FileUpload
                 ref={fileUploadRef}
                 name="files"
                 multiple
-                accept="image/*,.pdf"
+                accept="image/*"
                 maxFileSize={10000000} // 10MB
                 onSelect={handleFileSelect}
                 chooseLabel="Choose Files from Device"
@@ -215,7 +215,7 @@ function Home() {
                     <FiImage className="mx-auto text-4xl text-gray-400 mb-4" />
                     <p className="text-gray-500 mb-2">Drag and drop files here or click the button above</p>
                     <p className="text-sm text-gray-400">
-                      Supports: JPG, PNG, PDF (max 10MB each)
+                      Supports: JPG, PNG, GIF, BMP (max 10MB each)
                     </p>
                   </div>
                 }

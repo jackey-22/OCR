@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ocr-server-ai
+    env: python
+    region: oregon
+    buildCommand: cd server-ai && pip install -r requirements.txt
+    startCommand: cd server-ai && python app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: PORT
+        value: 5000
