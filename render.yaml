@@ -4,9 +4,7 @@ services:
     env: python
     region: oregon
     buildCommand: cd server-ai && pip install -r requirements.txt
-    startCommand: cd server-ai && python app.py
+    startCommand: cd server-ai && gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 300 --worker-class sync app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
-      - key: PORT
-        value: 5000
