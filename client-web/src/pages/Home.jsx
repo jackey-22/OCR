@@ -208,16 +208,25 @@ function Home() {
                 accept="image/*,.pdf"
                 maxFileSize={10000000} // 10MB
                 onSelect={handleFileSelect}
+                chooseLabel="Choose Files from Device"
+                chooseOptions={{ icon: 'pi pi-upload', className: 'p-button-outlined' }}
                 emptyTemplate={
                   <div className="text-center p-8">
                     <FiImage className="mx-auto text-4xl text-gray-400 mb-4" />
-                    <p className="text-gray-500 mb-2">Drag and drop files here</p>
+                    <p className="text-gray-500 mb-2">Drag and drop files here or click the button above</p>
                     <p className="text-sm text-gray-400">
                       Supports: JPG, PNG, PDF (max 10MB each)
                     </p>
                   </div>
                 }
-                headerTemplate={() => null}
+                headerTemplate={(options) => {
+                  const { chooseButton } = options;
+                  return (
+                    <div className="flex justify-center mb-4">
+                      {chooseButton}
+                    </div>
+                  );
+                }}
                 itemTemplate={(file, props) => (
                   <div className="flex items-center justify-between p-3 border rounded-lg mb-2">
                     <div className="flex items-center gap-3">
