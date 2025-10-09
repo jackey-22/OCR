@@ -168,27 +168,27 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4 md:p-6">
       <Toast ref={toast} />
       
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="text-center py-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        <div className="text-center py-4 sm:py-6 md:py-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-4 px-4">
             AI-Powered OCR System
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Extract text from images (JPG/JPEG or PNG) with advanced AI technology.
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="grid gap-6">
+        <div className="grid gap-4 sm:gap-6">
           {/* Upload Section */}
           <div className="lg:col-span-2">
             <Card className="h-full">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                   <FiUpload className="text-blue-600" />
                   Upload Files
                 </h2>
@@ -211,10 +211,10 @@ function Home() {
                 chooseLabel="Choose Files from Device"
                 chooseOptions={{ icon: 'pi pi-upload', className: 'p-button-outlined' }}
                 emptyTemplate={
-                  <div className="text-center p-8">
-                    <FiImage className="mx-auto text-4xl text-gray-400 mb-4" />
-                    <p className="text-gray-500 mb-2">Drag and drop files here or click the button above</p>
-                    <p className="text-sm text-gray-400">
+                  <div className="text-center p-4 sm:p-6 md:p-8">
+                    <FiImage className="mx-auto text-3xl sm:text-4xl text-gray-400 mb-3 sm:mb-4" />
+                    <p className="text-sm sm:text-base text-gray-500 mb-2">Drag and drop files here or click the button above</p>
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Supports: JPG, PNG, GIF, BMP (max 10MB each)
                     </p>
                   </div>
@@ -228,19 +228,19 @@ function Home() {
                   );
                 }}
                 itemTemplate={(file, props) => (
-                  <div className="flex items-center justify-between p-3 border rounded-lg mb-2">
-                    <div className="flex items-center gap-3">
-                      <FiFileText className="text-blue-600" />
-                      <div>
-                        <p className="font-medium">{file.name}</p>
-                        <p className="text-sm text-gray-500">
+                  <div className="flex items-center justify-between p-2 sm:p-3 border rounded-lg mb-2">
+                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                      <FiFileText className="text-blue-600 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-sm sm:text-base truncate">{file.name}</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
                           {(file.size / 1024 / 1024).toFixed(2)} MB
                         </p>
                       </div>
                     </div>
                     <Button
                       icon="pi pi-times"
-                      className="p-button-text p-button-danger p-button-sm"
+                      className="p-button-text p-button-danger p-button-sm flex-shrink-0"
                       onClick={() => props.onRemove()}
                     />
                   </div>
@@ -248,11 +248,11 @@ function Home() {
               />
 
               {selectedFiles.length > 0 && (
-                <div className="mt-4 space-y-3">
-                  <div className="flex items-center gap-2">
+                <div className="mt-3 sm:mt-4 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Chip 
                       label={`${selectedFiles.length} file(s) selected`}
-                      className="bg-blue-100 text-blue-800"
+                      className="bg-blue-100 text-blue-800 text-xs sm:text-sm"
                     />
                     {/* {useHighAccuracy && (
                       <Chip 
@@ -264,7 +264,7 @@ function Home() {
                   
                   {isProcessing && (
                     <div>
-                      <div className="flex justify-between text-sm mb-1">
+                      <div className="flex justify-between text-xs sm:text-sm mb-1">
                         <span>Processing...</span>
                         <span>{progress}%</span>
                       </div>
@@ -272,13 +272,13 @@ function Home() {
                     </div>
                   )}
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Button
                       label="Process Files"
                       icon={<FiEye />}
                       onClick={processFiles}
                       disabled={isProcessing}
-                      className="flex-1"
+                      className="flex-1 text-sm sm:text-base"
                     />
                     <Button
                       label="Clear"
@@ -286,6 +286,7 @@ function Home() {
                       outlined
                       onClick={clearAll}
                       disabled={isProcessing}
+                      className="sm:w-auto text-sm sm:text-base"
                     />
                   </div>
                 </div>
@@ -338,18 +339,19 @@ function Home() {
         {/* Results Section */}
         {extractedText && (
           <Card>
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+              <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
                 <FiFileText className="text-green-600" />
                 Extracted Text
               </h3>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                 <Button
                   icon="pi pi-copy"
                   label="Copy"
                   outlined
                   size="small"
                   onClick={copyToClipboard}
+                  className="flex-1 sm:flex-none text-xs sm:text-sm"
                 />
                 <Button
                   icon={<FiDownload />}
@@ -357,6 +359,7 @@ function Home() {
                   outlined
                   size="small"
                   onClick={downloadText}
+                  className="flex-1 sm:flex-none text-xs sm:text-sm"
                 />
                 <Button
                   icon={<FiEye />}
@@ -364,13 +367,14 @@ function Home() {
                   outlined
                   size="small"
                   onClick={() => setShowResults(true)}
+                  className="flex-1 sm:flex-none text-xs sm:text-sm"
                 />
               </div>
             </div>
             
-            <div className="bg-gray-50 p-4 rounded-lg border">
+            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border">
               <ScrollPanel style={{ width: '100%', height: '200px' }}>
-                <pre className="whitespace-pre-wrap text-sm font-mono">
+                <pre className="whitespace-pre-wrap text-xs sm:text-sm font-mono">
                   {extractedText}
                 </pre>
               </ScrollPanel>
@@ -383,8 +387,9 @@ function Home() {
       <Dialog
         header="Advanced Settings"
         visible={showSettings}
-        style={{ width: '450px' }}
+        style={{ width: '90vw', maxWidth: '450px' }}
         onHide={() => setShowSettings(false)}
+        className="m-2"
       >
         <div className="space-y-4">
           <div>
@@ -438,12 +443,13 @@ function Home() {
       <Dialog
         header="Processing Results"
         visible={showResults}
-        style={{ width: '80vw', maxWidth: '800px' }}
+        style={{ width: '95vw', maxWidth: '800px' }}
         onHide={() => setShowResults(false)}
         maximizable
+        className="m-2"
       >
         {results && (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div className="grid">
               {/* <Card> */}
                 {/* <h4 className="font-semibold mb-2">Processing Summary</h4> */}
@@ -462,8 +468,8 @@ function Home() {
               {/* </Card> */}
               
               <Card>
-                <h4 className="font-semibold mb-2">Text Statistics</h4>
-                <div className="space-y-1 text-sm">
+                <h4 className="font-semibold mb-2 text-sm sm:text-base">Text Statistics</h4>
+                <div className="space-y-1 text-xs sm:text-sm">
                   <p><span className="font-medium">Characters:</span> {extractedText.length}</p>
                   <p><span className="font-medium">Words:</span> {extractedText.split(/\s+/).length}</p>
                   <p><span className="font-medium">Lines:</span> {extractedText.split('\n').length}</p>
@@ -472,10 +478,10 @@ function Home() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-2">Extracted Text</h4>
-              <div className="bg-gray-50 p-4 rounded border">
-                <ScrollPanel style={{ width: '100%', height: '300px' }}>
-                  <pre className="whitespace-pre-wrap text-sm">
+              <h4 className="font-semibold mb-2 text-sm sm:text-base">Extracted Text</h4>
+              <div className="bg-gray-50 p-3 sm:p-4 rounded border">
+                <ScrollPanel style={{ width: '100%', height: '250px' }}>
+                  <pre className="whitespace-pre-wrap text-xs sm:text-sm">
                     {extractedText}
                   </pre>
                 </ScrollPanel>
